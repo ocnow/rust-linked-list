@@ -1,4 +1,3 @@
-#[derive(Clone)]
 pub struct Node{
     pub value : i32,
     next : Option<Box<Node>>
@@ -64,28 +63,51 @@ impl custom_list{
             println!("get-step is {}",head.value);
 
             head = match head.next.as_mut(){
-               None => return Err("Invalid index".to_string()),
-               Some(x) => x
+                None => return Err("Invalid index".to_string()),
+                Some(x) => x
             }
         }
         Ok(head.value)
     }
 
-    // pub fn delete_node(&mut self,index : usize) -> Result<&Node, String>{
-    //     if(self.head.is_none()){
-    //         return Err("List is empty".to_string());
-    //     }
+    pub fn delet_node(&mut self, d_index : usize) -> Result<String,String>{
 
-    //     let mut head = &mut self.head.unwrap();  
-    //     
-    //     if(index == 1){
-    //         return Ok(head)
-    //     }
+        if(d_index == 1){
+            if let None = self.head{
+                return Err("Invalid delete".to_string());
+            }
 
-    //     for _ in 0..index{
-    //         let k = head.next.as_mut().unwrap();
-    //     }
-    //     let k = head.next.as_mut().unwrap().next.as_ref().unwrap();
-    // }
+            self.head = match self.head.take().unwrap().next{
+                None => None,
+                Some(x) => Some(*x)
+            };
+
+            return Ok("all good".to_string());
+        }
+
+        let mut current_head = match self.head.as_mut(){
+            None => return Err("Invalid detele".to_string()),
+            Some(x) => x, 
+        };
+      
+
+        for i in 0..(d_index - 2){
+            current_head = match current_head.next.as_mut(){
+               None => return Err("Invalid delete".to_string()),
+               Some(x) => x, 
+            };
+        }
+
+        println!("value got before delete {}",current_head.value);
+
+        let del_node = match current_head.next.as_mut(){
+            None => return Err("Invalid delete".to_string()),
+            Some(x) => x 
+        };
+
+        println!("value got for delete {}",del_node.value);
+
+        current_head.next = del_node.next.take();
+        Ok("all good".to_string())
+    }
 }
-
