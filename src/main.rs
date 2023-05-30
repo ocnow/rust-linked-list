@@ -22,4 +22,25 @@ fn main() {
     };  
     linkl.insert_node(50);
     linkl.print_list();
+    match linkl.delet_node(1){
+        Ok(_) => println!("deleted that bitch"),
+        Err(x) => println!("Error we got is {}",x),
+    };
+    match linkl.delet_node(3){
+        Ok(_) => println!("deleted that bitch"),
+        Err(x) => println!("Error we got is {}",x),
+    };
+    match linkl.delet_node(1){
+        Ok(_) => println!("deleted that bitch"),
+        Err(x) => println!("Error we got is {}",x),
+    };
+    linkl.print_list();
+    match linkl.delet_node(1){
+        Ok(_) => println!("deleted that bitch"),
+        Err(x) => println!("Error we got is {}",x),
+    };
+    match linkl.delet_node(1){
+        Ok(_) => println!("deleted that bitch"),
+        Err(x) => println!("Error we got is {}",x),
+    };
 }

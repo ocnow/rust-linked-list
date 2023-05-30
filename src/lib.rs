@@ -17,7 +17,7 @@ impl custom_list{
 
     pub fn print_list(&self){
         println!("printing the list----");
-        if(self.head.is_none()){
+        if self.head.is_none(){
             println!("List is empty");
             return
         }
@@ -36,7 +36,7 @@ impl custom_list{
             next : None
         };
 
-        if(self.head.is_none()){
+        if self.head.is_none(){
             self.head = Some(ex);
             return
         }
@@ -50,11 +50,11 @@ impl custom_list{
     }
 
     pub fn get_node_value(&mut self,index : usize) -> Result<i32,String>{
-        if(self.head.is_none()){
+        if self.head.is_none(){
             return Err("List is empty".to_string());
         }
 
-        if(index == 0){
+        if index == 0{
             return Err("Invalid index".to_string());
         }
 
@@ -72,7 +72,7 @@ impl custom_list{
 
     pub fn delet_node(&mut self, d_index : usize) -> Result<String,String>{
 
-        if(d_index == 1){
+        if d_index == 1{
             if let None = self.head{
                 return Err("Invalid delete".to_string());
             }
@@ -91,7 +91,7 @@ impl custom_list{
         };
       
 
-        for i in 0..(d_index - 2){
+        for _ in 0..(d_index - 2){
             current_head = match current_head.next.as_mut(){
                None => return Err("Invalid delete".to_string()),
                Some(x) => x, 
@@ -100,14 +100,11 @@ impl custom_list{
 
         println!("value got before delete {}",current_head.value);
 
-        let del_node = match current_head.next.as_mut(){
+        current_head.next = match current_head.next.as_mut(){
             None => return Err("Invalid delete".to_string()),
-            Some(x) => x 
+            Some(x) => x.next.take(), 
         };
 
-        println!("value got for delete {}",del_node.value);
-
-        current_head.next = del_node.next.take();
         Ok("all good".to_string())
     }
 }
